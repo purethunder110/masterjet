@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  
+  django:
+    image: backend_worker
+    build:
+      context: .
+      dockerfile: docker/backend_worker/Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - network-manager
+    depends_on:
+      - rabbitmq-broker
+    env_file:
+      - ".env"
+    volumes:
+      - ".:/app"
+  
+  rabbitmq-broker:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    networks:
+      - network-manager
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
+  celery-worker:
+    # image: celery-worker
+    build: 
+      context: .
+      dockerfile: docker/celery/Dockerfile
+    command: ["celery","-A","masterjet","beat","-l","info","--scheduler","django_celery_beat.schedulers:DatabaseScheduler"]
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq-broker
+    networks:
+      - network-manager
+
+
+networks:
+  network-manager:
+    driver: bridge
