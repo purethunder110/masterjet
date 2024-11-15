@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
-
+PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__),".."))
 ALLOWED_HOSTS = ["*"]
 
 
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #package dependency apps
+    'graphene_django',
     'django_celery_beat',
     #core module
     'core'
@@ -56,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'masterjet.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -140,4 +142,28 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
-#NEWRELIC INTEGRATION
+# LOGS CONFIGURATION
+
+LOGGING={
+    "version":1,
+    "disabe_existing_loggers":False,
+    # "handlers": {
+    #     "default": {
+    #         "level": "INFO`",
+    #         "class": "logging.StreamHandler",
+    #         "formatter": "verbose" if DEBUG else "json",
+    #     },
+    # }
+}
+
+# NEWRELIC INTEGRATION
+# newrelic.agent.initialize(
+#     config_file=os.path.join(PROJECT_ROOT, "newrelic.ini"),
+#     environment="devlopment" if  DEBUG else os.environ.get("NEWRELIC_ENVIRONMENT","fallback"),
+#     log_level=logging.INFO
+# )
+
+# GRAPHQL CONFIGURATION
+GRAPHENE ={
+    "SCHEMA":"core.graphql.schema.schema"
+}
