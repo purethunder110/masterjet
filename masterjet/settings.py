@@ -144,17 +144,17 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 # LOGS CONFIGURATION
 
-LOGGING={
-    "version":1,
-    "disabe_existing_loggers":False,
-    # "handlers": {
-    #     "default": {
-    #         "level": "INFO`",
-    #         "class": "logging.StreamHandler",
-    #         "formatter": "verbose" if DEBUG else "json",
-    #     },
-    # }
-}
+# LOGGING={
+#     "version":1,
+#     "disabe_existing_loggers":False,
+#     # "handlers": {
+#     #     "default": {
+#     #         "level": "INFO`",
+#     #         "class": "logging.StreamHandler",
+#     #         "formatter": "verbose" if DEBUG else "json",
+#     #     },
+#     # }
+# }
 
 # NEWRELIC INTEGRATION
 # newrelic.agent.initialize(
@@ -165,5 +165,6 @@ LOGGING={
 
 # GRAPHQL CONFIGURATION
 GRAPHENE ={
-    "SCHEMA":"core.graphql.schema.schema"
+    "SCHEMA":"core.graphql.schema.schema",
+    "MIDDLEWARE": ["graphene_django.debug.DjangoDebugMiddleware"],
 }

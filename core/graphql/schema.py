@@ -1,6 +1,13 @@
-import graphene
+# from graphene_federation import build_schema
+from core.user.query import UserQueries
+from graphene import Schema,Node
 
-class Query(graphene.ObjectType):
-    hello = graphene.String(default_value="HI")
+# QUERY SCHEMA
+class QuerySchema(
+    UserQueries
+):
+    ...
 
-schema=graphene.Schema(query=Query)
+# schema=build_schema(QuerySchema)
+
+schema=Schema(query=QuerySchema)

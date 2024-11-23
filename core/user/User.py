@@ -6,7 +6,7 @@ from django.utils.crypto import get_random_string
 from .manager import UserManager
 
 class UserModel(AbstractBaseUser,PermissionsMixin):
-    id=models.UUIDField(primary_key=True,default=uuid.uuid4)
+    userid=models.UUIDField(primary_key=True,default=uuid.uuid4)
     first_name=models.CharField(max_length=256,null=False)
     last_name=models.CharField(max_length=256,null=True)
     username=models.CharField(max_length=255,null=False,unique=True)
@@ -28,5 +28,7 @@ class UserModel(AbstractBaseUser,PermissionsMixin):
         if self.email:
             self.email=self.email.lower()
         super().save(*args, **kwargs)
+    
+    
 
 

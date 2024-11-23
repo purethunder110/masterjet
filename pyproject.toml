@@ -6,12 +6,13 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 Django = "4.2"
 newrelic = "^10.2.0"
 celery = "^5.4.0"
 django-celery-beat = "^2.7.0"
 graphene-django = "^3.2.2"
+django-filter = "^24.3"
 
 
 [tool.poetry.group.dev.dependencies]
